@@ -35,6 +35,15 @@ class Parquimetro {
     let currentTrack = null;
     let nextTrack = null;
 
+    if (value >= 1 && value < 1.75) {
+      currentTrack = this.tableValues[0];
+      nextTrack = this.tableValues[1]
+    } else if (value >= 1.75 && value < 3) {
+      currentTrack = this.tableValues[1];
+      nextTrack = this.tableValues[2]
+    } else {
+      currentTrack = this.tableValues[2]
+    }
 
   }
 }
