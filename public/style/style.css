@@ -312,7 +312,24 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: var(--fz-sx);
   color: var(--clr-txt-muted);
   text-transform: uppercase;
-  letter-spacing: .8em;
+  letter-spacing: 0.8em;
 }
 
+.progressBar {
+  height: 1rem;
+  background: var(--clr-surface-hi);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
 
+.progressFill {
+  width: 0%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
+  transition: width var(--transition-slow);
+  box-shadow: 0 0 1.8rem var(--clr-primary-glow);
+}
