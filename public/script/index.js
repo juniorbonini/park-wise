@@ -45,5 +45,8 @@ class Parquimetro {
       currentTrack = this.tableValues[2]
     }
 
+    time = this.tableValues.time;
+    exchange = value - this.tableValues.value;
+
   }
 }
