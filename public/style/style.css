@@ -176,10 +176,79 @@ body {
 
 .fieldsetContainer label {
   font-size: var(--fz-xs);
-
   color: var(--clr-txt-muted);
-
   text-transform: uppercase;
-
   letter-spacing: 0.12em;
+}
+
+.fieldsetContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sz-4);
+}
+
+.fieldsetContainer label {
+  font-size: var(--fz-xs);
+  color: var(--clr-txt-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputWrapper span {
+  position: absolute;
+  left: var(--sz-5);
+  color: var(--clr-txt-muted);
+  font-size: var(--fz-base);
+  z-index: 1;
+}
+
+.inputWrapper input {
+  width: 100%;
+  height: var(--sz-14);
+  background: var(--clr-surface-hi);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding:
+    0
+    var(--sz-5)
+    0
+    var(--sz-10);
+  outline: none;
+  color: var(--clr-txt-primary);
+  font-family: var(--font-body);
+  font-size: var(--fz-lg);
+  font-weight: var(--fw-bold);
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+
+  appearance: textfield;
+}
+
+.inputWrapper input::placeholder {
+  color: var(--clr-txt-muted);
+  font-size: var(--fz-base);
+  font-weight: var(--fw-regular);
+}
+
+.inputWrapper input:focus {
+  border-color: var(--clr-primary);
+  box-shadow:
+    0 0 0 3px var(--clr-primary-glow),
+    var(--shadow-primary);
+  transform: translateY(-1px);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
 }
