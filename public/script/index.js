@@ -15,5 +15,7 @@ class Parquimetro {
     return true;
   }
 
- 
+  calcValue(value) {
+
+  }
 }
