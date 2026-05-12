@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParkWise AI</title>
+
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <main class="mainContainer">
+      <section class="cardContainer">
+        <div class="headerContainer">
+          <h1>ParkWise AI</h1>
+          <span>Smart Parking Assistant</span>
+        </div>
+
+        <div class="fieldsetContainer">
+          <label for="value">Valor inserido</label>
+
+          <div class="inputWrapper">
+            <span>R$</span>
+            <input
+              type="number"
+              id="value"
+              placeholder="Digite um valor"
+              step="0.01"
+            />
+          </div>
+          <button id="btn">Analisar estacionamento</button>
+        </div>
+
+        <section class="statusCard">
+          <h2>Status da análise</h2>
+
+          <div id="result">Insira um valor para iniciar</div>
+        </section>
+
+        <section class="progressContainer">
+          <div class="progressHeader">
+            <span>Progresso para a próxima faixa</span>
+            <span id="progressText">0%</span>
+          </div>
+
+          <div class="progressBar">
+            <div class="progressFil" id="progressFill"></div>
+          </div>
+        </section>
+
+        <section class="recommendationContainer" id="recommendationCard">
+          <h3>💡 Smart Suggestion</h3>
+
+          <p id="recommendationText"></p>
+        </section>
+
+        <section class="historyCard">
+          <h3>Últimos estacionamentos</h3>
+
+          <ul id="historic"></ul>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
