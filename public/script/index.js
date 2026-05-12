@@ -7,5 +7,13 @@ class Parquimetro {
     ];
   }
 
+  isValidValue(value) {
+    if (isNaN(value) || value < 1) {
+      return false;
+    }
 
+    return true;
+  }
+
+ 
 }
