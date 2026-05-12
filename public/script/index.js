@@ -16,6 +16,19 @@ class Parquimetro {
   }
 
   calcValue(value) {
+    if (!this.isValidValue(value)) {
+      return {
+        success: false,
+        message: "Valor inválido. Digite um valor válido",
+      };
+    }
+
+    if (value < 1) {
+      return {
+        success: false,
+        message: "Valor insuficiente.  Mínimo R$ 1,00",
+      };
+    }
 
   }
 }
