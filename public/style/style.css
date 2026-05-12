@@ -194,7 +194,6 @@ body {
   letter-spacing: 0.12em;
 }
 
-
 .inputWrapper {
   position: relative;
   display: flex;
@@ -215,11 +214,7 @@ body {
   background: var(--clr-surface-hi);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
-  padding:
-    0
-    var(--sz-5)
-    0
-    var(--sz-10);
+  padding: 0 var(--sz-5) 0 var(--sz-10);
   outline: none;
   color: var(--clr-txt-primary);
   font-family: var(--font-body);
@@ -251,4 +246,38 @@ body {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
+}
+
+.btn {
+  height: var(--sz-14);
+
+  border: none;
+
+  border-radius: var(--radius-md);
+
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+
+  color: var(--clr-txt-primary);
+
+  font-family: var(--font-display);
+  font-size: var(--fz-md);
+  font-weight: var(--fw-bold);
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  box-shadow: 0 0.8rem 2.4rem rgba(77, 163, 255, 0.22);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 1.2rem 3.2rem rgba(77, 163, 255, 0.32);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
