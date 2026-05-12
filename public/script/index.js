@@ -77,4 +77,18 @@ class InterfaceParkAssistant {
       this.loadHistory();
     });
   }
+
+  calc() {
+    const value = Number(this.inputValue.value);
+    this.resuklt.textContent = "Analisando melhor opção...";
+
+    setTimeout(() => {
+      const res = this.ParkAssistant.calc(value);
+
+      this.showResult(res);
+      this.attHistory(res);
+
+      this.clearField();
+    }, 800);
+  }
 }
