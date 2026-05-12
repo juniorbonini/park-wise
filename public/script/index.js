@@ -30,5 +30,11 @@ class Parquimetro {
       };
     }
 
+    let time = 0;
+    let exchange = 0;
+    let currentTrack = null;
+    let nextTrack = null;
+
+
   }
 }
