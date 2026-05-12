@@ -1,3 +1,5 @@
+const getElement = (id) => document.getElementById(id);
+
 class ParkAssistant {
   constructor() {
     this.tableValues = [
@@ -37,12 +39,12 @@ class ParkAssistant {
 
     if (value >= 1 && value < 1.75) {
       currentTrack = this.tableValues[0];
-      nextTrack = this.tableValues[1]
+      nextTrack = this.tableValues[1];
     } else if (value >= 1.75 && value < 3) {
       currentTrack = this.tableValues[1];
-      nextTrack = this.tableValues[2]
+      nextTrack = this.tableValues[2];
     } else {
-      currentTrack = this.tableValues[2]
+      currentTrack = this.tableValues[2];
     }
 
     time = this.tableValues.time;
@@ -55,12 +57,24 @@ class ParkAssistant {
       valueEntered: value,
       currentTrack,
       nextTrack,
-    }
+    };
   }
 }
 
 class InterfaceParkAssistant {
   constructor() {
-    
+    this.ParkAssistant = new ParkAssistant();
+
+    this.inputValue = getElement("value");
+    this.result = getElement("result");
+    this.button = getElement("btn");
+    this.progressFill = getElement("progressFill");
+    this.progressText = getElement("progressText");
+    this.recommendationCard = getElement("recommendationCard");
+    this.recommendationText = getElement("recommendationText");
+    this.historic = getElement("historic");
+    this.button.addEventListener("click", () => {
+      this.loadHistory();
+    });
   }
 }
