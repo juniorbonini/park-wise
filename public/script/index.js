@@ -1,4 +1,4 @@
-class Parquimetro {
+class ParkAssistant {
   constructor() {
     this.tableValues = [
       { value: 1.0, time: 30 },
@@ -56,5 +56,11 @@ class Parquimetro {
       currentTrack,
       nextTrack,
     }
+  }
+}
+
+class InterfaceParkAssistant {
+  constructor() {
+    
   }
 }
