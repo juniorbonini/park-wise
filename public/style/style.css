@@ -167,3 +167,19 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+
+.fieldsetContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sz-4);
+}
+
+.fieldsetContainer label {
+  font-size: var(--fz-xs);
+
+  color: var(--clr-txt-muted);
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.12em;
+}
