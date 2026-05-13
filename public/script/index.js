@@ -10,7 +10,7 @@ class ParkAssistant {
   }
 
   isValidValue(value) {
-    if (isNaN(value) || value < 1) {
+    if (isNaN(value) || value <= 0) {
       return false;
     }
 
@@ -21,14 +21,14 @@ class ParkAssistant {
     if (!this.isValidValue(value)) {
       return {
         success: false,
-        message: "Valor inválido. Digite um valor válido",
+        message: "Digite um valor válido.",
       };
     }
 
     if (value < 1) {
       return {
         success: false,
-        message: "Valor insuficiente.  Mínimo R$ 1,00",
+        message: "Valor insuficiente. Mínimo: R$ 1,00.",
       };
     }
 
@@ -47,8 +47,9 @@ class ParkAssistant {
       currentTrack = this.tableValues[2];
     }
 
-    time = this.tableValues.time;
-    exchange = value - this.tableValues.value;
+    time = currentTrack.time;
+
+    exchange = value - currentTrack.value;
 
     return {
       success: true,
@@ -63,32 +64,150 @@ class ParkAssistant {
 
 class InterfaceParkAssistant {
   constructor() {
-    this.ParkAssistant = new ParkAssistant();
+    this.parkAssistant = new ParkAssistant();
 
     this.inputValue = getElement("value");
-    this.result = getElement("result");
     this.button = getElement("btn");
-    this.progressFill = getElement("progressFill");
+    this.result = getElement("result");
+    this.historic = getElement("historic");
     this.progressText = getElement("progressText");
+    this.progressFill = getElement("progressFill");
     this.recommendationCard = getElement("recommendationCard");
     this.recommendationText = getElement("recommendationText");
-    this.historic = getElement("historic");
-    this.button.addEventListener("click", () => {
-      this.loadHistory();
-    });
+    this.button.addEventListener("click", () => this.calc());
+    this.loadHistory();
   }
 
   calc() {
     const value = Number(this.inputValue.value);
-    this.resuklt.textContent = "Analisando melhor opção...";
+
+    this.result.innerHTML = "Analisando melhor opção...";
 
     setTimeout(() => {
-      const res = this.ParkAssistant.calc(value);
+      const res = this.parkAssistant.calcValue(value);
 
       this.showResult(res);
       this.attHistory(res);
-
       this.clearField();
     }, 800);
   }
+
+  showResult(res) {
+    if (!res.success) {
+      this.result.innerHTML = res.message;
+
+      this.recommendationCard.classList.add("hidden");
+
+      this.progressFill.style.width = "0%";
+
+      this.progressText.textContent = "0%";
+
+      return;
+    }
+
+    this.result.innerHTML = `
+      <strong>Tempo:</strong>
+      ${res.time} minutos
+      <br><br>
+
+      <strong>Troco:</strong>
+      ${this.formatValue(res.exchange)}
+    `;
+
+    this.attProgressBar(res);
+
+    this.showRecommendation(res);
+  }
+
+  attProgressBar(res) {
+    if (!res.nextTrack) {
+      this.progressFill.style.width = "100%";
+
+      this.progressText.textContent = "Plano máximo atingido";
+
+      return;
+    }
+
+    const actualValue = res.valueEntered;
+    const baseValue = res.currentTrack.value;
+    const maxValue = res.nextTrack.value;
+    const progress = ((actualValue - baseValue) / (maxValue - baseValue)) * 100;
+    this.progressFill.style.width = `${progress}%`;
+    this.progressText.textContent = `${Math.floor(progress)}%`;
+  }
+
+  showRecommendation(res) {
+    if (!res.nextTrack) {
+      this.recommendationCard.classList.remove("hidden");
+
+      this.recommendationText.textContent = `
+        Você desbloqueou o plano máximo
+        disponível do ParkWise AI.
+        `;
+
+      return;
+    }
+
+    const missingValue = res.nextTrack.value - res.valueEntered;
+
+    this.recommendationCard.classList.remove("hidden");
+
+    this.recommendationText.innerHTML = `
+      Adicione apenas
+      <strong>
+        ${this.formatValue(missingValue)}
+      </strong>
+
+      para desbloquear
+      <strong>
+        ${res.nextTrack.time} minutos
+      </strong>
+
+      de permanência.
+      `;
+  }
+
+  attHistory(res) {
+    if (!res.success) return;
+
+    const item = `
+      <li>
+        ${this.formatValue(res.valueEntered)}
+        → ${res.time} minutos
+      </li>
+    `;
+
+    let historic = JSON.parse(localStorage.getItem("historic")) || [];
+
+    historic.unshift(item);
+
+    historic = historic.slice(0, 5);
+
+    localStorage.setItem("historic", JSON.stringify(historic));
+
+    this.renderHistory(historic);
+  }
+
+  loadHistory() {
+    const history = JSON.parse(localStorage.getItem("historic")) || [];
+
+    this.renderHistory(history);
+  }
+
+  renderHistory(history) {
+    this.historic.innerHTML = history.join("");
+  }
+
+  clearField() {
+    this.inputValue.value = "";
+  }
+
+  formatValue(value) {
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
 }
+
+new InterfaceParkAssistant();
